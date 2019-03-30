@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,10 +28,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @Entity
-@Table(name = "UserInfo")
+@Table(name = "ItemInfo")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
-public class UserInfo implements Serializable {
+public class ItemInfo implements Serializable {
 
 	/**
 	 * 
@@ -41,13 +40,7 @@ public class UserInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@NotBlank
-	private String password;
-
-	@NotBlank
-	private String userName;
+	private Long itemId;
 
 	@Column(nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -59,38 +52,14 @@ public class UserInfo implements Serializable {
 	@LastModifiedDate
 	private Date updatedAt;
 
-	@NotBlank(message = " First name is mandatory")
-	private String fname;
-	private String lname;
-	private String dob;
-	@Pattern(regexp = "^M$|^m$|^Male$|^male$|^F$|^f$|^Female$|^female$*", message = "Gender not allowed")
-	private String gendar;
-	private String phone;
-	private String email;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	@NotBlank(message = "Item name is mandatory")
+	private String itemName;
+	private String itemDescription;
+	private double price;
+	private String brand;
+	private String category;
+	private String mfg;
+	private String efg;
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -108,52 +77,68 @@ public class UserInfo implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public String getFname() {
-		return fname;
+	public Long getItemId() {
+		return itemId;
 	}
 
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
 	}
 
-	public String getLname() {
-		return lname;
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
-	public String getDob() {
-		return dob;
+	public String getItemDescription() {
+		return itemDescription;
 	}
 
-	public void setDob(String dob) {
-		this.dob = dob;
+	public void setItemDescription(String itemDescription) {
+		this.itemDescription = itemDescription;
 	}
 
-	public String getGendar() {
-		return gendar;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setGendar(String gendar) {
-		this.gendar = gendar;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getBrand() {
+		return brand;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
+	public String getMfg() {
+		return mfg;
+	}
+
+	public void setMfg(String mfg) {
+		this.mfg = mfg;
+	}
+
+	public String getEfg() {
+		return efg;
+	}
+
+	public void setEfg(String efg) {
+		this.efg = efg;
+	}
+	
 }

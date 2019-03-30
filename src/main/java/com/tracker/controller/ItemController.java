@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tracker.dao.UserRepository;
-import com.tracker.model.UserInfo;
+import com.tracker.dao.ItemRepository;
+import com.tracker.model.ItemInfo;
 
 /**
  * @author Bujair
@@ -27,58 +27,59 @@ import com.tracker.model.UserInfo;
  */
 @RestController
 @RequestMapping("/tracker/1.0/api")
-public class UserController extends BaseController{
+public class ItemController extends BaseController{
 
-	private static final String SUCCESS = "SUCCESS";
 
-	Logger logger = LoggerFactory.getLogger(UserController.class);
+	Logger logger = LoggerFactory.getLogger(ItemController.class);
 
 	@Autowired(required = false)
-	UserRepository userRepository;
+	ItemRepository itemRepository;
 
+	@GetMapping("/item")
 	/**
-	 * Getting all the Users
+	 * Getting all the Items
 	 * 
 	 * @return
 	 */
-	@GetMapping("/user")
-	public List<UserInfo> getUser() {
-		logger.debug("GET USERS");
-		return userRepository.findAll();
+	public List<ItemInfo> getItem() {
+		logger.debug("GET ITEM");
+		return itemRepository.findAll();
 	}
 
 	/**
-	 * Getting User data based on ID
+	 * Getting Item data based on ID
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@GetMapping(path = "/user/{id}")
-	public UserInfo getUser(@PathVariable("id") String id) {
-		return userRepository.findById(getLongFromString(id)).orElse(null);
+	@GetMapping(path = "/item/{id}")
+	public ItemInfo getItem(@PathVariable("id") String id) {
+		return itemRepository.findById(getLongFromString(id)).orElse(null);
 	}
 
+	
+
 	/**
-	 * Deleting user
+	 * Deleting item
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping(path = "/user/{id}")
-	public String deleteUser(@PathVariable("id") String id) {
-		userRepository.deleteById(getLongFromString(id));
+	@DeleteMapping(path = "/item/{id}")
+	public String deleteItem(@PathVariable("id") String id) {
+		itemRepository.deleteById(getLongFromString(id));
 		return SUCCESS;
 	}
 
 	/**
-	 * Creating or Updating the User
+	 * Creating or Updating the Item
 	 * 
-	 * @param user
+	 * @param item
 	 * @return
 	 */
-	@PostMapping("/user")
-	public UserInfo createNote(@Valid @RequestBody UserInfo user) {
-		return userRepository.save(user);
+	@PostMapping("/item")
+	public ItemInfo createNote(@Valid @RequestBody ItemInfo item) {
+		return itemRepository.save(item);
 	}
 
 }
